@@ -47,8 +47,8 @@ public class GestionPedidos implements IGestionPedidos, IGestionCarrito {
         }else{
             lineaPedido = createLineaPedido(articulo,cantidad);
         }
-        if(!articulosDAO.articuloConStock(articulo,cantidad)){
-            throw new StockInsuficenteException("No queda stock suficiente de el articulo "+ articulo.getNombre());
+        if(!articulosDAO.articuloConStock(articulo,lineaPedido.getCantidad())){
+            throw new StockInsuficenteException("No queda stock suficiente del articulo "+ articulo.getNombre());
         }
         articulosPedido.add(lineaPedido);
         
@@ -66,6 +66,11 @@ public class GestionPedidos implements IGestionPedidos, IGestionCarrito {
 
     @Override
     public Pedido realizaPedido(Date horaRecogida) throws DataAccessException {
+        for (LineaPedido lp : articulosPedido) {
+            if (!articulosDAO.articuloConStock(lp.getArticulo(), lp.getCantidad())) {
+                throw new StockInsuficenteException("No queda stock suficiente del articulo " + lp.getArticulo().getNombre());
+            }
+        }
         Pedido pedido = createPedido(horaRecogida);
         pedido = pedidosDAO.creaPedido(pedido);
         usuario.getPedidos().add(pedido);
