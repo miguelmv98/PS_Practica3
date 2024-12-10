@@ -29,31 +29,34 @@ public class GestionPedidos implements IGestionPedidos, IGestionCarrito {
         this.articulosDAO = articulosDAO;
         this.pedidosDAO = pedidosDAO;
         this.usuariosDAO = usuariosDAO;
-        this.articulosPedido = new ArrayList<LineaPedido>();
+        this.articulosPedido = new ArrayList<>();
         this.usuario = usuario;
     }
 
     @Override
-    public LineaPedido inlcuyeArticulo(Articulo articulo, int cantidad) throws DataAccessException, StockInsuficenteException {
+    public LineaPedido incluyeArticulo(Articulo articulo, int cantidad) throws DataAccessException, StockInsuficenteException {
 
         LineaPedido lineaPedido = null;
         for (LineaPedido lp : articulosPedido) {
-            if(lineaPedido.getArticulo().equals(articulo)){
+            if(lp.getArticulo().equals(articulo)){
                 lineaPedido = lp;
             }
         }
+        int cantidadEnCarrito = cantidad;
         if(lineaPedido != null){
-            lineaPedido.setCantidad(lineaPedido.getCantidad()+cantidad);
-        }else{
-            lineaPedido = createLineaPedido(articulo,cantidad);
+            cantidadEnCarrito= lineaPedido.getCantidad()+cantidad;
         }
-        if(!articulosDAO.articuloConStock(articulo,lineaPedido.getCantidad())){
+        if(articulosDAO.articuloConStock(articulo,cantidadEnCarrito)){
+            if(lineaPedido != null){
+                lineaPedido.setCantidad(cantidadEnCarrito);
+            }else{
+                lineaPedido = createLineaPedido(articulo,cantidadEnCarrito);
+                articulosPedido.add(lineaPedido);
+            }
+        }else{
             throw new StockInsuficenteException("No queda stock suficiente del articulo "+ articulo.getNombre());
         }
-        articulosPedido.add(lineaPedido);
-        
         return lineaPedido;
-
     }
 
     private LineaPedido createLineaPedido(Articulo articulo, int cantidad) {

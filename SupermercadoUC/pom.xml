@@ -7,7 +7,12 @@
     <modules>
         <module>Common</module>
 		<module>Bussines</module>
+		<module>SupermercadoUCEAR</module>
 	</modules>
+
+	<build>
+		<finalName>SupermercadoUC</finalName>
+	</build>
 
     <dependencies>
 		<dependency>
@@ -41,5 +46,4 @@
 			<scope>test</scope>
 		</dependency>
   </dependencies>
-
 </project>

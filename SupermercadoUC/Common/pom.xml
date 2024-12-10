@@ -10,6 +10,9 @@
     </parent>
 
     <artifactId>Common</artifactId>
+    <build>
+        <finalName>SupermercadoUCCommon</finalName>
+    </build>
 
     <properties>
         <maven.compiler.source>21</maven.compiler.source>

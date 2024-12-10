@@ -9,7 +9,6 @@ import es.unican.ps.SupermercadoUCCommon.exceptions.DataAccessException;
 import es.unican.ps.SupermercadoUCCommon.exceptions.StockInsuficenteException;
 import org.junit.jupiter.api.*;
 import org.mockito.ArgumentCaptor;
-import org.mockito.ArgumentMatcher;
 import org.mockito.Captor;
 import org.mockito.Mock;
 
@@ -59,8 +58,10 @@ public class GestionPedidosTest {
             sut = new GestionPedidos(mockArticulosDAO,mockPedidosDAO,mockUsuariosDAO,user);
 
             try {
-                when(mockArticulosDAO.articuloConStock(articuloA,10)).thenReturn(true).thenReturn(true).thenReturn(false);
-                when(mockArticulosDAO.articuloConStock(articuloA,10)).thenReturn(false);
+                when(mockArticulosDAO.articuloConStock(articuloA,10)).thenReturn(true);
+                when(mockArticulosDAO.articuloConStock(articuloA,20)).thenReturn(true);
+                when(mockArticulosDAO.articuloConStock(articuloA,31)).thenReturn(false);
+                when(mockArticulosDAO.articuloConStock(articuloB,10)).thenReturn(false);
                 when(mockArticulosDAO.articuloConStock(articuloF,10)).thenThrow( new DataAccessException());
             } catch (DataAccessException e) {
                 throw new RuntimeException(e);
@@ -72,7 +73,7 @@ public class GestionPedidosTest {
             //PRE
 
             //CASE
-            assertDoesNotThrow(() -> sut.inlcuyeArticulo(articuloA,10));
+            assertDoesNotThrow(() -> sut.incluyeArticulo(articuloA,10));
             //ASSERT
             assertEquals(1,sut.getArticulosPedido().size());
             assertEquals("Articulo A",sut.getArticulosPedido().getFirst().getArticulo().getNombre());
@@ -88,15 +89,15 @@ public class GestionPedidosTest {
         @Test
         public void anhadeArticuloDuplicado(){
             //PRE
-            assertDoesNotThrow(() -> sut.inlcuyeArticulo(articuloA,10));
+            assertDoesNotThrow(() -> sut.incluyeArticulo(articuloA,10));
             //CASE
-            assertDoesNotThrow(() -> sut.inlcuyeArticulo(articuloA,10));
+            assertDoesNotThrow(() -> sut.incluyeArticulo(articuloA,10));
             //ASSERT
             assertEquals(1,sut.getArticulosPedido().size());
             assertEquals("Articulo A",sut.getArticulosPedido().getFirst().getArticulo().getNombre());
             assertEquals(20,sut.getArticulosPedido().getFirst().getCantidad());
             try {
-                verify(mockArticulosDAO,times(2)).articuloConStock(articuloCaptor.capture(),eq(10));
+                verify(mockArticulosDAO,times(2)).articuloConStock(articuloCaptor.capture(),anyInt());
                 assertEquals("Articulo A", articuloCaptor.getAllValues().get(0).getNombre());
                 assertEquals("Articulo A", articuloCaptor.getAllValues().get(1).getNombre());
             } catch (DataAccessException ignored) {
@@ -107,21 +108,21 @@ public class GestionPedidosTest {
         public void anhadeArticuloDuplicadoStockInsuficiente(){
             //PRE
             assertDoesNotThrow(() -> {
-                sut.inlcuyeArticulo(articuloA,10);
-                sut.inlcuyeArticulo(articuloA,10);
+                sut.incluyeArticulo(articuloA,10);
+                sut.incluyeArticulo(articuloA,10);
             });
             //CASE
-            assertThrows(StockInsuficenteException.class,() -> sut.inlcuyeArticulo(articuloA,10));
+            assertThrows(StockInsuficenteException.class,() -> sut.incluyeArticulo(articuloA,11));
             //ASSERT
             assertEquals(1,sut.getArticulosPedido().size());
             assertEquals("Articulo A",sut.getArticulosPedido().getFirst().getArticulo().getNombre());
             assertEquals(20,sut.getArticulosPedido().getFirst().getCantidad());
 
             try {
-                verify(mockArticulosDAO,times(3)).articuloConStock(articuloCaptor.capture(),eq(10));
+                verify(mockArticulosDAO,times(3)).articuloConStock(articuloCaptor.capture(),anyInt());
                 assertEquals("Articulo A", articuloCaptor.getAllValues().get(0).getNombre());
                 assertEquals("Articulo A", articuloCaptor.getAllValues().get(1).getNombre());
-                assertEquals("Articulo A", articuloCaptor.getAllValues().get(3).getNombre());
+                assertEquals("Articulo A", articuloCaptor.getAllValues().get(2).getNombre());
             } catch (DataAccessException ignored) {
             }
         }
@@ -129,7 +130,7 @@ public class GestionPedidosTest {
         @Test
         public void anhadeArticuloNuevoStockInsuficiente(){
             //PRE
-            assertThrows(StockInsuficenteException.class,() -> sut.inlcuyeArticulo(articuloB,10));
+            assertThrows(StockInsuficenteException.class,() -> sut.incluyeArticulo(articuloB,10));
             //ASSERT
             assertEquals(0,sut.getArticulosPedido().size());
             try {
@@ -144,7 +145,7 @@ public class GestionPedidosTest {
             //PRE
 
             //CASE
-            assertThrows(DataAccessException.class,() -> sut.inlcuyeArticulo(articuloF,10));
+            assertThrows(DataAccessException.class,() -> sut.incluyeArticulo(articuloF,10));
             //ASSERT
             assertEquals(0,sut.getArticulosPedido().size());
             try {
