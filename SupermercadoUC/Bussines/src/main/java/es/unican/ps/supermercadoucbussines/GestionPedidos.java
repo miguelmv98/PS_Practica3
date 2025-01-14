@@ -1,7 +1,6 @@
 package es.unican.ps.supermercadoucbussines;
 
-import es.unican.ps.SupermercadoUCCommon.contracts.bussinesLayer.IGestionCarrito;
-import es.unican.ps.SupermercadoUCCommon.contracts.bussinesLayer.IGestionPedidos;
+import es.unican.ps.SupermercadoUCCommon.contracts.bussinesLayer.jakarta.*;
 import es.unican.ps.SupermercadoUCCommon.contracts.dataLayer.IArticulosDAO;
 import es.unican.ps.SupermercadoUCCommon.contracts.dataLayer.IPedidosDAO;
 import es.unican.ps.SupermercadoUCCommon.contracts.dataLayer.IUsuariosDAO;
@@ -16,7 +15,7 @@ import java.util.Date;
 import java.util.List;
 
 @Stateful
-public class GestionPedidos implements IGestionPedidos, IGestionCarrito {
+public class GestionPedidos implements IGestionPedidosLocal, IGestionPedidosRemote, IGestionCarritoLocal, IGestionCarritoRemote {
     private final IArticulosDAO articulosDAO;
     private final IPedidosDAO pedidosDAO;
     private final IUsuariosDAO usuariosDAO;
