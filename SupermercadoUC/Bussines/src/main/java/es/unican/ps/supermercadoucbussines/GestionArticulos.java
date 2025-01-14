@@ -1,14 +1,15 @@
 package es.unican.ps.supermercadoucbussines;
 
-import es.unican.ps.SupermercadoUCCommon.contracts.bussinesLayer.IConsultaArticulos;
-import es.unican.ps.SupermercadoUCCommon.contracts.bussinesLayer.IGestionArticulos;
+import es.unican.ps.SupermercadoUCCommon.contracts.bussinesLayer.jakarta.*;
 import es.unican.ps.SupermercadoUCCommon.contracts.dataLayer.IArticulosDAO;
 import es.unican.ps.SupermercadoUCCommon.exceptions.DataAccessException;
 import es.unican.ps.SupermercadoUCCommon.domain.Articulo;
+import jakarta.ejb.Stateless;
 
 import java.util.List;
 
-public class GestionArticulos implements IGestionArticulos, IConsultaArticulos {
+@Stateless
+public class GestionArticulos implements IGestionArticulosRemote, IGestionArticulosLocal, IConsultaArticulosLocal, IConsultaArticulosRemote {
     private final IArticulosDAO articulosDAO;
 
     public GestionArticulos(IArticulosDAO articulosDAO) {

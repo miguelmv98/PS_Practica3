@@ -76,8 +76,8 @@ public class GestionPedidosTest {
             assertDoesNotThrow(() -> sut.incluyeArticulo(articuloA,10));
             //ASSERT
             assertEquals(1,sut.getArticulosPedido().size());
-            assertEquals("Articulo A",sut.getArticulosPedido().getFirst().getArticulo().getNombre());
-            assertEquals(10,sut.getArticulosPedido().getFirst().getCantidad());
+            assertEquals("Articulo A",sut.getArticulosPedido().get(0).getArticulo().getNombre());
+            assertEquals(10,sut.getArticulosPedido().get(0).getCantidad());
             try {
                 verify(mockArticulosDAO).articuloConStock(articuloCaptor.capture(), eq(10));
                 assertEquals("Articulo A", articuloCaptor.getValue().getNombre());
@@ -94,8 +94,8 @@ public class GestionPedidosTest {
             assertDoesNotThrow(() -> sut.incluyeArticulo(articuloA,10));
             //ASSERT
             assertEquals(1,sut.getArticulosPedido().size());
-            assertEquals("Articulo A",sut.getArticulosPedido().getFirst().getArticulo().getNombre());
-            assertEquals(20,sut.getArticulosPedido().getFirst().getCantidad());
+            assertEquals("Articulo A",sut.getArticulosPedido().get(0).getArticulo().getNombre());
+            assertEquals(20,sut.getArticulosPedido().get(0).getCantidad());
             try {
                 verify(mockArticulosDAO,times(2)).articuloConStock(articuloCaptor.capture(),anyInt());
                 assertEquals("Articulo A", articuloCaptor.getAllValues().get(0).getNombre());
@@ -115,8 +115,8 @@ public class GestionPedidosTest {
             assertThrows(StockInsuficenteException.class,() -> sut.incluyeArticulo(articuloA,11));
             //ASSERT
             assertEquals(1,sut.getArticulosPedido().size());
-            assertEquals("Articulo A",sut.getArticulosPedido().getFirst().getArticulo().getNombre());
-            assertEquals(20,sut.getArticulosPedido().getFirst().getCantidad());
+            assertEquals("Articulo A",sut.getArticulosPedido().get(0).getArticulo().getNombre());
+            assertEquals(20,sut.getArticulosPedido().get(0).getCantidad());
 
             try {
                 verify(mockArticulosDAO,times(3)).articuloConStock(articuloCaptor.capture(),anyInt());
