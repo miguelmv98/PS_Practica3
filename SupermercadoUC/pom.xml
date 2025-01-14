@@ -8,6 +8,8 @@
         <module>Common</module>
 		<module>Bussines</module>
 		<module>SupermercadoUCEAR</module>
+		<module>Persistence</module>
+		<module>Web</module>
 	</modules>
 
 	<build>

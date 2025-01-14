@@ -1,14 +1,22 @@
 package es.unican.ps.SupermercadoUCCommon.domain;
 
+import jakarta.persistence.*;
 import lombok.*;
+
+import java.io.Serializable;
 import java.util.List;
 
 @Getter
 @Setter
-public class Usuario {
+@Entity
+@Table(name="USUARIOS")
+public class Usuario implements Serializable {
     private String nombre;
+    @Id
     private String dni;
     private String email;
-    private String comprasMensuales;
+    @Column(name = "comp_mes")
+    private int comprasMensuales;
+    @OneToMany(mappedBy="usuario", fetch = FetchType.EAGER)
     private List<Pedido> pedidos;
 }

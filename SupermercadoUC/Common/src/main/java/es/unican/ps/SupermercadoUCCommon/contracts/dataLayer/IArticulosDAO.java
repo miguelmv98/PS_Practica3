@@ -13,5 +13,4 @@ public interface IArticulosDAO {
     List<Articulo> articulos() throws DataAccessException;
     Articulo articuloPorNombre(String nombre) throws DataAccessException;
     boolean articuloConStock(Articulo articulo, int stock) throws DataAccessException;
-    boolean reduceStock(Articulo articulo, int stock) throws DataAccessException;
 }

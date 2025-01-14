@@ -62,7 +62,7 @@ public class GestionPedidosTest {
                 when(mockArticulosDAO.articuloConStock(articuloA,20)).thenReturn(true);
                 when(mockArticulosDAO.articuloConStock(articuloA,31)).thenReturn(false);
                 when(mockArticulosDAO.articuloConStock(articuloB,10)).thenReturn(false);
-                when(mockArticulosDAO.articuloConStock(articuloF,10)).thenThrow( new DataAccessException());
+                when(mockArticulosDAO.articuloConStock(articuloF,10)).thenThrow( new DataAccessException("Error consultando stock articulo"));
             } catch (DataAccessException e) {
                 throw new RuntimeException(e);
             }

@@ -1,0 +1,15 @@
+USUARIOS
+
+dni | nombre | email | comp_mes
+
+PEDIDOS
+
+ref | fecha | hora | estado | usr_ref
+
+LINEAS
+
+id | cantidad | precio | ped_ref | art_ref
+
+ARTICULOS
+
+id | nombre |stock | precio

@@ -26,6 +26,18 @@
             <version>0.0.1-SNAPSHOT</version>
             <type>ejb</type>
         </dependency>
+        <dependency>
+            <groupId>es.unican.ps</groupId>
+            <artifactId>Common</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>es.unican.ps</groupId>
+            <artifactId>Persistence</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+            <type>jar</type>
+        </dependency>
     </dependencies>
     <build>
         <finalName>SupermercadoUC</finalName>
@@ -46,6 +58,10 @@
                         <jarModule>
                             <groupId>es.unican.ps</groupId>
                             <artifactId>Common</artifactId>
+                        </jarModule>
+                        <jarModule>
+                            <groupId>es.unican.ps</groupId>
+                            <artifactId>Persistence</artifactId>
                         </jarModule>
                     </modules>
                 </configuration>
