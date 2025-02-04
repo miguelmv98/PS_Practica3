@@ -69,7 +69,7 @@ public class ArticulosDAO implements IArticulosDAO {
     @Override
     public boolean articuloConStock(Articulo articulo, int stock) throws DataAccessException {
         Query q = em.createQuery("select a from Articulo a where a.id = :id and a.stock >= :stock");
-        q.setParameter("id", articulo.getNombre());
+        q.setParameter("id", articulo.getId());
         q.setParameter("stock", stock);
         try{
             return  q.getSingleResult()!= null;

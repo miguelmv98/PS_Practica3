@@ -4,12 +4,14 @@ import es.unican.ps.SupermercadoUCCommon.contracts.bussinesLayer.jakarta.*;
 import es.unican.ps.SupermercadoUCCommon.contracts.dataLayer.IArticulosDAO;
 import es.unican.ps.SupermercadoUCCommon.exceptions.DataAccessException;
 import es.unican.ps.SupermercadoUCCommon.domain.Articulo;
+import jakarta.ejb.EJB;
 import jakarta.ejb.Stateless;
 
 import java.util.List;
 
 @Stateless
 public class GestionArticulos implements IGestionArticulosRemote, IGestionArticulosLocal, IConsultaArticulosLocal, IConsultaArticulosRemote {
+    @EJB
     private final IArticulosDAO articulosDAO;
 
     public GestionArticulos(IArticulosDAO articulosDAO) {

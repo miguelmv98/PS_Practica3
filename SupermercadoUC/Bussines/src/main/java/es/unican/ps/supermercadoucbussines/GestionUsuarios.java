@@ -4,10 +4,12 @@ import es.unican.ps.SupermercadoUCCommon.contracts.bussinesLayer.jakarta.*;
 import es.unican.ps.SupermercadoUCCommon.contracts.dataLayer.IUsuariosDAO;
 import es.unican.ps.SupermercadoUCCommon.exceptions.DataAccessException;
 import es.unican.ps.SupermercadoUCCommon.domain.Usuario;
+import jakarta.ejb.EJB;
 import jakarta.ejb.Stateless;
 
 @Stateless
 public class GestionUsuarios implements IGestionUsuariosRemote, IGestionUsuariosLocal {
+    @EJB
     private final IUsuariosDAO usuariosDAO;
 
     public GestionUsuarios(IUsuariosDAO usuariosDAO)

@@ -3,10 +3,12 @@ package es.unican.ps.supermercadoucbussines;
 import es.unican.ps.SupermercadoUCCommon.contracts.bussinesLayer.jakarta.*;
 import es.unican.ps.SupermercadoUCCommon.contracts.dataLayer.IUsuariosDAO;
 import es.unican.ps.SupermercadoUCCommon.exceptions.DataAccessException;
+import jakarta.ejb.EJB;
 import jakarta.ejb.Stateless;
 
 @Stateless
 public class GestionTimer implements ITimerLocal, ITimerRemote {
+    @EJB
     private final IUsuariosDAO usuariosDAO;
 
     public GestionTimer(IUsuariosDAO usuariosDAO) {
