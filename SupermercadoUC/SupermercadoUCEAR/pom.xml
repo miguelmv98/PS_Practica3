@@ -36,7 +36,13 @@
             <groupId>es.unican.ps</groupId>
             <artifactId>Persistence</artifactId>
             <version>0.0.1-SNAPSHOT</version>
-            <type>jar</type>
+            <type>ejb</type>
+        </dependency>
+        <dependency>
+            <groupId>es.unican.ps</groupId>
+            <artifactId>Web</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+            <type>war</type>
         </dependency>
     </dependencies>
     <build>
@@ -52,17 +58,21 @@
                         <ejbModule>
                             <groupId>es.unican.ps</groupId>
                             <artifactId>Bussines</artifactId>
-                        </ejbModule>¡
+                        </ejbModule>
+                        <webModule>
+                            <groupId>es.unican.ps</groupId>
+                            <artifactId>Web</artifactId>
+                        </webModule>
                         <!--  Este módulo es solo una librería, se añade como jarModule de modo
                                                     que se añade a la carpeta lib del ear  -->
                         <jarModule>
                             <groupId>es.unican.ps</groupId>
                             <artifactId>Common</artifactId>
                         </jarModule>
-                        <jarModule>
+                        <ejbModule>
                             <groupId>es.unican.ps</groupId>
                             <artifactId>Persistence</artifactId>
-                        </jarModule>
+                        </ejbModule>
                     </modules>
                 </configuration>
             </plugin>

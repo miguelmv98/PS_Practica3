@@ -6,6 +6,7 @@ import es.unican.ps.SupermercadoUCCommon.contracts.dataLayer.IPedidosDAO;
 import es.unican.ps.SupermercadoUCCommon.contracts.dataLayer.IUsuariosDAO;
 import es.unican.ps.SupermercadoUCCommon.exceptions.*;
 import es.unican.ps.SupermercadoUCCommon.domain.*;
+import jakarta.ejb.EJB;
 import jakarta.ejb.Stateful;
 import lombok.Getter;
 
@@ -16,8 +17,11 @@ import java.util.List;
 
 @Stateful
 public class GestionPedidos implements IGestionPedidosLocal, IGestionPedidosRemote, IGestionCarritoLocal, IGestionCarritoRemote {
+    @EJB
     private final IArticulosDAO articulosDAO;
+    @EJB
     private final IPedidosDAO pedidosDAO;
+    @EJB
     private final IUsuariosDAO usuariosDAO;
 
     @Getter
