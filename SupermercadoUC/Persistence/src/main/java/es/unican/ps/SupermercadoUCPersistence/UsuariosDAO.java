@@ -1,6 +1,8 @@
 package es.unican.ps.SupermercadoUCPersistence;
 
 import es.unican.ps.SupermercadoUCCommon.contracts.dataLayer.IUsuariosDAO;
+import es.unican.ps.SupermercadoUCCommon.contracts.dataLayer.jakarta.IUsuariosDAOLocal;
+import es.unican.ps.SupermercadoUCCommon.contracts.dataLayer.jakarta.IUsuariosDAORemote;
 import es.unican.ps.SupermercadoUCCommon.domain.Usuario;
 import es.unican.ps.SupermercadoUCCommon.exceptions.DataAccessException;
 import jakarta.ejb.Stateless;
@@ -9,7 +11,7 @@ import jakarta.persistence.PersistenceUnit;
 import jakarta.persistence.Query;
 
 @Stateless
-public class UsuariosDAO implements IUsuariosDAO {
+public class UsuariosDAO implements IUsuariosDAOLocal, IUsuariosDAORemote {
 
     @PersistenceUnit(unitName="supermercadoPU")
     private EntityManager em;

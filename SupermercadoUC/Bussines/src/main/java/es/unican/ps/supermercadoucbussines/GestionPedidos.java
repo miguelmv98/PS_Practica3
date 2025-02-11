@@ -1,9 +1,9 @@
 package es.unican.ps.supermercadoucbussines;
 
 import es.unican.ps.SupermercadoUCCommon.contracts.bussinesLayer.jakarta.*;
-import es.unican.ps.SupermercadoUCCommon.contracts.dataLayer.IArticulosDAO;
-import es.unican.ps.SupermercadoUCCommon.contracts.dataLayer.IPedidosDAO;
-import es.unican.ps.SupermercadoUCCommon.contracts.dataLayer.IUsuariosDAO;
+import es.unican.ps.SupermercadoUCCommon.contracts.dataLayer.jakarta.IArticulosDAOLocal;
+import es.unican.ps.SupermercadoUCCommon.contracts.dataLayer.jakarta.IPedidosDAOLocal;
+import es.unican.ps.SupermercadoUCCommon.contracts.dataLayer.jakarta.IUsuariosDAOLocal;
 import es.unican.ps.SupermercadoUCCommon.exceptions.*;
 import es.unican.ps.SupermercadoUCCommon.domain.*;
 import jakarta.ejb.EJB;
@@ -18,17 +18,21 @@ import java.util.List;
 @Stateful
 public class GestionPedidos implements IGestionPedidosLocal, IGestionPedidosRemote, IGestionCarritoLocal, IGestionCarritoRemote {
     @EJB
-    private final IArticulosDAO articulosDAO;
+    private IArticulosDAOLocal articulosDAO;
     @EJB
-    private final IPedidosDAO pedidosDAO;
+    private IPedidosDAOLocal pedidosDAO;
     @EJB
-    private final IUsuariosDAO usuariosDAO;
+    private IUsuariosDAOLocal usuariosDAO;
 
     @Getter
     private final List<LineaPedido> articulosPedido;
     private final Usuario usuario;
 
-    public GestionPedidos(IArticulosDAO articulosDAO, IPedidosDAO pedidosDAO, IUsuariosDAO usuariosDAO,Usuario usuario) {
+    public GestionPedidos() {
+        this.usuario = usuariosDAO.usuarioPorDni("123456789A");
+        this.articulosPedido = new ArrayList<>();
+    }
+    public GestionPedidos(IArticulosDAOLocal articulosDAO, IPedidosDAOLocal pedidosDAO, IUsuariosDAOLocal usuariosDAO,Usuario usuario) {
         this.articulosDAO = articulosDAO;
         this.pedidosDAO = pedidosDAO;
         this.usuariosDAO = usuariosDAO;
@@ -79,6 +83,7 @@ public class GestionPedidos implements IGestionPedidosLocal, IGestionPedidosRemo
         }
         Pedido pedido = createPedido(horaRecogida);
         pedido = pedidosDAO.creaPedido(pedido);
+        //Actualizar stock de los articulos
         usuario.getPedidos().add(pedido);
         return pedido;
     }

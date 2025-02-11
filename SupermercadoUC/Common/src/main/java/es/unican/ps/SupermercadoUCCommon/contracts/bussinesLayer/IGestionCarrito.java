@@ -7,8 +7,10 @@ import es.unican.ps.SupermercadoUCCommon.exceptions.DataAccessException;
 import es.unican.ps.SupermercadoUCCommon.exceptions.StockInsuficenteException;
 
 import java.util.Date;
+import java.util.List;
 
 public interface IGestionCarrito {
     LineaPedido incluyeArticulo(Articulo articulo, int cantidad) throws DataAccessException, StockInsuficenteException;
     Pedido realizaPedido(Date horaRecogida) throws DataAccessException;
+    List<LineaPedido> getArticulosPedido();
 }

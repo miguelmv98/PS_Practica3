@@ -1,6 +1,5 @@
 package es.unican.ps.SupermercadoUCPersistence;
 
-import es.unican.ps.SupermercadoUCCommon.contracts.dataLayer.IArticulosDAO;
 import es.unican.ps.SupermercadoUCCommon.domain.Articulo;
 import es.unican.ps.SupermercadoUCCommon.exceptions.DataAccessException;
 import org.junit.jupiter.api.BeforeEach;
@@ -38,6 +37,8 @@ public class ArticulosDAOTest {
     public void testArticuloConStock_ExisteConStockSuficiente() throws DataAccessException {
         Articulo articulo = new Articulo();
         articulo.setId(10);
+        articulo.setNombre("A");
+        articulo.setStock(10);
         int stock = 10;
         //Simulamos que la query devuelve articulo
         when(query.getSingleResult()).thenReturn(articulo);
@@ -54,7 +55,9 @@ public class ArticulosDAOTest {
     public void testArticuloConStock_NoExisteConStockSuficiente() throws DataAccessException {
         Articulo articulo = new Articulo();
         articulo.setId(5);
-        int stock = 5;
+        articulo.setNombre("B");
+        articulo.setStock(5);
+        int stock = 10;
         // Simulamos que el query devuelve null
         when(query.getSingleResult()).thenReturn(null);
 
@@ -69,6 +72,8 @@ public class ArticulosDAOTest {
     @Test
     public void testArticuloConStock_ExcepcionEnQuery() {
         Articulo articulo = new Articulo();
+        articulo.setId(100);
+        articulo.setNombre("F");
         articulo.setId(20);
         int stock = 20;
 

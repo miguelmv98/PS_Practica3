@@ -8,9 +8,7 @@
         <groupId>es.unican.ps</groupId>
         <artifactId>SupermercadoUC</artifactId>
         <version>0.0.1-SNAPSHOT</version>
-
     </parent>
-
     <artifactId>SupermercadoUCEAR</artifactId>
 
     <properties>
@@ -40,7 +38,7 @@
         </dependency>
         <dependency>
             <groupId>es.unican.ps</groupId>
-            <artifactId>Web</artifactId>
+            <artifactId>SupermercadoUCWeb</artifactId>
             <version>0.0.1-SNAPSHOT</version>
             <type>war</type>
         </dependency>
@@ -61,7 +59,7 @@
                         </ejbModule>
                         <webModule>
                             <groupId>es.unican.ps</groupId>
-                            <artifactId>Web</artifactId>
+                            <artifactId>SupermercadoUCWeb</artifactId>
                         </webModule>
                         <!--  Este módulo es solo una librería, se añade como jarModule de modo
                                                     que se añade a la carpeta lib del ear  -->

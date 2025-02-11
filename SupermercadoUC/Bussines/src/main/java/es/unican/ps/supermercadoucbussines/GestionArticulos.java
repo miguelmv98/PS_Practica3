@@ -1,7 +1,7 @@
 package es.unican.ps.supermercadoucbussines;
 
 import es.unican.ps.SupermercadoUCCommon.contracts.bussinesLayer.jakarta.*;
-import es.unican.ps.SupermercadoUCCommon.contracts.dataLayer.IArticulosDAO;
+import es.unican.ps.SupermercadoUCCommon.contracts.dataLayer.jakarta.IArticulosDAOLocal;
 import es.unican.ps.SupermercadoUCCommon.exceptions.DataAccessException;
 import es.unican.ps.SupermercadoUCCommon.domain.Articulo;
 import jakarta.ejb.EJB;
@@ -12,11 +12,7 @@ import java.util.List;
 @Stateless
 public class GestionArticulos implements IGestionArticulosRemote, IGestionArticulosLocal, IConsultaArticulosLocal, IConsultaArticulosRemote {
     @EJB
-    private final IArticulosDAO articulosDAO;
-
-    public GestionArticulos(IArticulosDAO articulosDAO) {
-        this.articulosDAO = articulosDAO;
-    }
+    private IArticulosDAOLocal articulosDAO;
 
     @Override
     public Articulo articulo(String nombre) throws DataAccessException {

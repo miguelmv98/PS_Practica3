@@ -3,6 +3,9 @@ package es.unican.ps.supermercadoucbussines;
 import es.unican.ps.SupermercadoUCCommon.contracts.dataLayer.IArticulosDAO;
 import es.unican.ps.SupermercadoUCCommon.contracts.dataLayer.IPedidosDAO;
 import es.unican.ps.SupermercadoUCCommon.contracts.dataLayer.IUsuariosDAO;
+import es.unican.ps.SupermercadoUCCommon.contracts.dataLayer.jakarta.IArticulosDAOLocal;
+import es.unican.ps.SupermercadoUCCommon.contracts.dataLayer.jakarta.IPedidosDAOLocal;
+import es.unican.ps.SupermercadoUCCommon.contracts.dataLayer.jakarta.IUsuariosDAOLocal;
 import es.unican.ps.SupermercadoUCCommon.domain.Articulo;
 import es.unican.ps.SupermercadoUCCommon.domain.Usuario;
 import es.unican.ps.SupermercadoUCCommon.exceptions.DataAccessException;
@@ -27,11 +30,11 @@ public class GestionPedidosTest {
         private Articulo articuloF;
 
         @Mock
-        IPedidosDAO mockPedidosDAO;
+        IPedidosDAOLocal mockPedidosDAO;
         @Mock
-        IArticulosDAO  mockArticulosDAO;
+        IArticulosDAOLocal mockArticulosDAO;
         @Mock
-        IUsuariosDAO  mockUsuariosDAO;
+        IUsuariosDAOLocal mockUsuariosDAO;
 
         @Captor
         ArgumentCaptor<Articulo> articuloCaptor;

@@ -1,6 +1,8 @@
 package es.unican.ps.SupermercadoUCPersistence;
 
 import es.unican.ps.SupermercadoUCCommon.contracts.dataLayer.IPedidosDAO;
+import es.unican.ps.SupermercadoUCCommon.contracts.dataLayer.jakarta.IPedidosDAOLocal;
+import es.unican.ps.SupermercadoUCCommon.contracts.dataLayer.jakarta.IPedidosDAORemote;
 import es.unican.ps.SupermercadoUCCommon.domain.EstadoPedido;
 import es.unican.ps.SupermercadoUCCommon.domain.LineaPedido;
 import es.unican.ps.SupermercadoUCCommon.domain.Pedido;
@@ -11,7 +13,7 @@ import jakarta.persistence.PersistenceUnit;
 import jakarta.persistence.Query;
 
 @Stateless
-public class PedidosDAO implements IPedidosDAO {
+public class PedidosDAO implements IPedidosDAOLocal, IPedidosDAORemote {
 
     @PersistenceUnit(unitName="supermercadoPU")
     private EntityManager em;

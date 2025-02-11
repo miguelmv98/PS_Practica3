@@ -1,6 +1,8 @@
 package es.unican.ps.SupermercadoUCPersistence;
 
 import es.unican.ps.SupermercadoUCCommon.contracts.dataLayer.IArticulosDAO;
+import es.unican.ps.SupermercadoUCCommon.contracts.dataLayer.jakarta.IArticulosDAOLocal;
+import es.unican.ps.SupermercadoUCCommon.contracts.dataLayer.jakarta.IArticulosDAORemote;
 import es.unican.ps.SupermercadoUCCommon.domain.Articulo;
 import es.unican.ps.SupermercadoUCCommon.exceptions.DataAccessException;
 import jakarta.ejb.Stateless;
@@ -10,7 +12,7 @@ import jakarta.persistence.Query;
 
 import java.util.List;
 @Stateless
-public class ArticulosDAO implements IArticulosDAO {
+public class ArticulosDAO implements IArticulosDAOLocal, IArticulosDAORemote {
 
     @PersistenceUnit(unitName="supermercadoPU")
     private EntityManager em;
@@ -18,10 +20,12 @@ public class ArticulosDAO implements IArticulosDAO {
     @Override
     public Articulo creaArticulo(Articulo articulo) throws DataAccessException {
         try{
-           return em.merge(articulo);
+            em.persist(articulo);
+           return articulo;
         }catch(Exception e){
             throw new DataAccessException("Error creando articulo");
         }
+        //Quiero controlar que tipo de error si existe un elemento que existe y devolver null
     }
 
     @Override
@@ -36,6 +40,7 @@ public class ArticulosDAO implements IArticulosDAO {
     @Override
     public Articulo eliminaArticulo(Articulo articulo) throws DataAccessException {
         try{
+            //Deberia buscar antes de eliminar porque necesita que este managed
             em.remove(articulo);
         }catch(Exception e){
             throw new DataAccessException("Error eliminando articulo");

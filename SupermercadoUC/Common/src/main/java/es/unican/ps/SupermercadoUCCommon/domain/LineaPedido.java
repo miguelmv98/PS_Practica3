@@ -14,7 +14,7 @@ public class LineaPedido implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @ManyToOne
-    @JoinColumn(name="art_ref")
+    @JoinColumn(name = "art_ref")
     private Articulo articulo;
     private int cantidad;
     private double precio;
